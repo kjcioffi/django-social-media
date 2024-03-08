@@ -1,0 +1,7 @@
+# files
+*.pyc
+.env
+
+# directories
+__pycache__
+.venv
