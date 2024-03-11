@@ -64,7 +64,7 @@ class TestUserModel(TestCase):
             self.user.full_clean()
         self.assertIn('email', e.exception.message_dict)
 
-    def test_email_within_150_chars(self):
+    def test_email_within_254_chars(self):
         with self.assertRaises(ValidationError) as e:
             self.user.email = ''.join(random.choice(self.ascii) for _ in range(255))
             self.user.full_clean()
