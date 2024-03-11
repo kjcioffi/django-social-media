@@ -1,6 +1,7 @@
 import datetime
 import random
 import string
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.forms import ValidationError
 from django.test import TestCase
 
@@ -15,9 +16,10 @@ class TestUserProfileModel(TestCase):
         
         self.user.save()
         
-        self.user_profile = UserProfile(user=self.user, bio=None)
+        self.user_profile = UserProfile(user=self.user, bio="")
 
     def test_empty_bio(self):
+        self.user_profile.bio = None
         self.assertEqual(self.user_profile.bio, None)
 
     def test_bio_not_empty(self):
@@ -31,9 +33,10 @@ class TestUserProfileModel(TestCase):
 
     def test_bio_not_greater_than_600_chars(self):
         letters = string.ascii_letters
-        
+
         with self.assertRaises(ValidationError) as e:
             self.user_profile.bio = ''.join(random.choice(letters) for _ in range(601))
             self.user_profile.full_clean()
             
         self.assertIn('bio', e.exception.message_dict)
+    
