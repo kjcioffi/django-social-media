@@ -50,3 +50,22 @@ class TestUserModel(TestCase):
             self.user.last_name = ''.join(random.choice(self.ascii) for _ in range(151))
             self.user.full_clean()
         self.assertIn('last_name', e.exception.message_dict)
+
+    def test_email_not_blank(self):
+        try:
+            self.user.full_clean()
+        except ValidationError as e:
+            if 'email' in e.message_dict:
+                self.fail(f'A ValidatioNError was raised for non-blank email: {e.message_dict}')
+    
+    def test_email_blank(self):
+        with self.assertRaises(ValidationError) as e:
+            self.user.email = None
+            self.user.full_clean()
+        self.assertIn('email', e.exception.message_dict)
+
+    def test_email_within_150_chars(self):
+        with self.assertRaises(ValidationError) as e:
+            self.user.email = ''.join(random.choice(self.ascii) for _ in range(255))
+            self.user.full_clean()
+        self.assertIn('email', e.exception.message_dict)
