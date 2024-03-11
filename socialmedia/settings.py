@@ -39,6 +39,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'user_accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -77,7 +78,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'socialmedia.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -85,6 +85,9 @@ DATABASES = {
     'default': env.db()
 }
 
+# Default User Model
+
+AUTH_USER_MODEL = 'user_accounts.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
