@@ -31,7 +31,7 @@ class TestUserProfileModel(TestCase):
 
     def test_bio_not_greater_than_600_chars(self):
         letters = string.ascii_letters
-        breakpoint()
+        
         with self.assertRaises(ValidationError) as e:
             self.user_profile.bio = ''.join(random.choice(letters) for _ in range(601))
             self.user_profile.full_clean()
