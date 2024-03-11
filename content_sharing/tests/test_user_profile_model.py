@@ -5,7 +5,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.forms import ValidationError
 from django.test import TestCase
 
-from content_sharing.models import UserProfile
+from content_sharing.models import UserProfile, user_directory_path
 from user_accounts.models import User
 
 class TestUserProfileModel(TestCase):
@@ -39,4 +39,20 @@ class TestUserProfileModel(TestCase):
             self.user_profile.full_clean()
             
         self.assertIn('bio', e.exception.message_dict)
-    
+
+    def test_default_image(self):
+        self.user_profile.save()
+        self.assertEqual(self.user_profile.photo, 'default.jpg')
+
+    def test_no_default_image(self):
+        self.user_profile.photo = SimpleUploadedFile(name='test_image.jpg', content=b'' * 1024, content_type='image/jpeg')
+        self.user_profile.save()
+        self.assertTrue(UserProfile.objects.get(user=self.user).photo, 'test_image.jpg')
+
+    def test_proper_save_location(self):
+        self.user_profile.photo = SimpleUploadedFile(name='test_image.jpg', content=b'' * 1024, content_type='image/jpeg')
+        self.user_profile.save()
+
+        expected_path = user_directory_path(self.user_profile, 'test_image.jpg')
+        self.assertTrue(self.user_profile.photo, expected_path)
+        

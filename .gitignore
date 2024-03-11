@@ -3,5 +3,6 @@
 .env
 
 # directories
+media
 __pycache__
 .venv
