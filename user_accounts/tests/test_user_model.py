@@ -29,3 +29,20 @@ class TestUserModel(TestCase):
             self.user.first_name = ''.join(random.choice(self.ascii) for _ in range(151))
             self.user.full_clean()
         self.assertIn('first_name', e.exception.message_dict)
+
+    def test_last_name_not_blank(self):
+        with self.assertRaises(ValidationError) as e:
+            self.user.full_clean()
+        self.assertNotIn('last_name', e.exception.message_dict)
+
+    def test_last_name_blank(self):
+        with self.assertRaises(ValidationError) as e:
+            self.user.last_name = None
+            self.user.full_clean()
+        self.assertIn('last_name', e.exception.message_dict)
+
+    def test_last_name_within_150_chars(self):
+        with self.assertRaises(ValidationError) as e:
+            self.user.last_name = ''.join(random.choice(self.ascii) for _ in range(151))
+            self.user.full_clean()
+        self.assertIn('last_name', e.exception.message_dict)
