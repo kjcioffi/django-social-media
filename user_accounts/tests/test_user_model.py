@@ -33,9 +33,11 @@ class TestUserModel(TestCase):
         self.assertIn('first_name', e.exception.message_dict)
 
     def test_last_name_not_blank(self):
-        with self.assertRaises(ValidationError) as e:
+        try:
             self.user.full_clean()
-        self.assertNotIn('last_name', e.exception.message_dict)
+        except ValidationError as e:
+            if 'last_name' in e.message_dict:
+                self.fail(f'A ValidationError was raised for a non-blank last name: {e.message_dict}')
 
     def test_last_name_blank(self):
         with self.assertRaises(ValidationError) as e:
