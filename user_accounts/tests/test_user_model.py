@@ -1,3 +1,4 @@
+import datetime
 import random
 import string
 from django.forms import ValidationError
@@ -11,7 +12,7 @@ class TestUserModel(TestCase):
     def setUp(self):
         self.ascii = string.ascii_letters
         self.user = User(username='johndoe', first_name='John', last_name='Doe',
-                        email='johndoe@example.com')
+                        email='johndoe@example.com', birthday=datetime.date(1900, 1, 1))
 
     def test_first_name_not_blank(self):
         try:
@@ -69,3 +70,20 @@ class TestUserModel(TestCase):
             self.user.email = ''.join(random.choice(self.ascii) for _ in range(255))
             self.user.full_clean()
         self.assertIn('email', e.exception.message_dict)
+
+    def test_birthday_not_blank(self):
+        try:
+            self.user.full_clean()
+        except ValidationError as e:
+            if 'birthday' in e.message_dict:
+                self.fail(f'A ValidatioNError was raised for non-blank birthday: {e.message_dict}')
+    
+    def test_birthday_blank(self):
+        with self.assertRaisesMessage(ValidationError, "{'birthday': ['Birthday cannot be blank.']}"):
+            self.user.birthday = None
+            self.user.clean_fields()
+
+    def test_user_older_than_18_years_old(self):
+        with self.assertRaisesMessage(ValidationError, "{'birthday': ['Must be at least 18 years of age.']}"):
+            self.user.birthday = datetime.date(2007, 3, 11)
+            self.user.full_clean()
