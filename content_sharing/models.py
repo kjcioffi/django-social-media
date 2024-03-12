@@ -10,8 +10,11 @@ class UserProfile(models.Model):
     bio = models.CharField(max_length=600, blank=True)
     photo = models.ImageField(upload_to=user_directory_path,
                               default='default.jpg')
-
-
+    
+    def __str__(self):
+        return f"{self.user}'s profile"
+    
+    
 class Post(models.Model):
     user_profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
     content = models.CharField(max_length=30000)
