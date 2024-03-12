@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.validators import MinLengthValidator
 from user_accounts.models import User
 
 def user_directory_path(instance, filename):
