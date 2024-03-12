@@ -59,4 +59,11 @@ class TestUserProfileModel(TestCase):
         image_path = os.path.join(settings.MEDIA_ROOT, expected_path)
 
         self.assertTrue(os.path.exists(image_path))
-        
+
+    def test_user_delete_cascades_user_profiles(self):
+        User.objects.filter(pk=self.user.pk).delete()
+        self.assertNotIn(self.user_profile, UserProfile.objects.all())
+
+    def test_user_profile_does_not_delete_cascade_users(self):
+        UserProfile.objects.filter(pk=self.user_profile.pk).delete()
+        self.assertIn(self.user, User.objects.all())
