@@ -35,3 +35,12 @@ class TestPostModel(TestCase):
         with self.assertRaisesMessage(ValidationError, "{'content': ['Ensure this value has at most 30000 characters (it has 30001).']}"):
             self.post.content = ''.join(random.choice(letters) for _ in range(30001))
             self.post.clean_fields()
+
+    def test_user_profile_delete_cascades_posts(self):
+        UserProfile.objects.filter(pk=self.user_profile.pk).delete()
+        self.assertNotIn(self.post, Post.objects.all())
+
+    def test_post_does_not_delete_cascade_user_profiles(self):
+        Post.objects.filter(pk=self.post.pk).delete()
+        self.assertIn(self.user_profile, UserProfile.objects.all())
+        
