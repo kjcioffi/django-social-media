@@ -12,12 +12,15 @@ class UserProfile(models.Model):
                               default='default.jpg')
     
     def __str__(self):
-        return f"{self.user}'s profile"
+        return f"{self.user}"
     
     
 class Post(models.Model):
     user_profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE)
     content = models.CharField(max_length=30000)
+
+    def __str__(self):
+        return f"Post #{self.id} created by {self.user_profile}"
 
 
 class PostLike(models.Model):
