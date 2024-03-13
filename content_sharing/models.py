@@ -29,3 +29,12 @@ class PostLike(models.Model):
 
     def __str__(self):
         return f"{self.user_profile.user} liked {self.post.user_profile}'s post"
+    
+
+class Reply(models.Model):
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    response = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return f"{self.user_profile} replied to {self.post}"
