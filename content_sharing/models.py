@@ -38,3 +38,11 @@ class Reply(models.Model):
 
     def __str__(self):
         return f"{self.user_profile} replied to {self.post}"
+
+    
+class ReplyLike(models.Model):
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    reply = models.ForeignKey(Reply, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user_profile} liked {self.reply}"
