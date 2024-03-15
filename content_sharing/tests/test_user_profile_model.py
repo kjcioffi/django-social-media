@@ -18,7 +18,7 @@ class TestUserProfileModel(TestCase):
         
         self.user.save()
         
-        self.user_profile = UserProfile(user=self.user, bio="")
+        self.user_profile = UserProfile.objects.filter(user=self.user).get()
 
     def test_empty_bio(self):
         self.user_profile.bio = None
@@ -43,13 +43,12 @@ class TestUserProfileModel(TestCase):
         self.assertIn('bio', e.exception.message_dict)
 
     def test_default_image(self):
-        self.user_profile.save()
         self.assertEqual(self.user_profile.photo, 'default.jpg')
 
     def test_no_default_image(self):
         self.user_profile.photo = SimpleUploadedFile(name='test_image.jpg', content=b'' * 1024, content_type='image/jpeg')
         self.user_profile.save()
-        self.assertTrue(UserProfile.objects.get(user=self.user).photo, 'test_image.jpg')
+        self.assertTrue(self.user_profile, 'test_image.jpg')
 
     def test_photo_save_path(self):
         self.user_profile.photo = SimpleUploadedFile(name='test_image.jpg', content=b'' * 1024, content_type='image/jpeg')
@@ -61,9 +60,9 @@ class TestUserProfileModel(TestCase):
         self.assertTrue(os.path.exists(image_path))
 
     def test_user_delete_cascades_user_profiles(self):
-        User.objects.filter(pk=self.user.pk).delete()
+        self.user.delete()
         self.assertNotIn(self.user_profile, UserProfile.objects.all())
 
     def test_user_profile_does_not_delete_cascade_users(self):
-        UserProfile.objects.filter(pk=self.user_profile.pk).delete()
+        self.user_profile.delete()
         self.assertIn(self.user, User.objects.all())

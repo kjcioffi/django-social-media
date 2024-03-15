@@ -10,15 +10,12 @@ from user_accounts.models import User
 class TestPostModel(TestCase):
 
     def setUp(self):
-        self.user = User(username='johndoe', first_name='John', last_name='Doe',
+        self.user = User.objects.create(username='johndoe', first_name='John', last_name='Doe',
                         email='johndoe@example.com', birthday=datetime.date(1900, 1, 1))
         
-        self.user.save()
-        
-        self.user_profile = UserProfile(user=self.user, bio="")
-        self.user_profile.save()
+        self.user_profile = UserProfile.objects.filter(user=self.user).get()
 
-        self.post = Post(user_profile=self.user_profile, content='')
+        self.post = Post.objects.create(user_profile=self.user_profile, content='')
 
     def test_user_profile_on_post_not_empty(self):
         self.post.user_profile = None
@@ -37,10 +34,10 @@ class TestPostModel(TestCase):
             self.post.clean_fields()
 
     def test_user_profile_delete_cascades_posts(self):
-        UserProfile.objects.filter(pk=self.user_profile.pk).delete()
+        self.user_profile.delete()
         self.assertNotIn(self.post, Post.objects.all())
 
     def test_post_does_not_delete_cascade_user_profiles(self):
-        Post.objects.filter(pk=self.post.pk).delete()
+        self.post.delete()
         self.assertIn(self.user_profile, UserProfile.objects.all())
         
