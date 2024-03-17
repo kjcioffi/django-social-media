@@ -1,0 +1,62 @@
+body {
+    box-sizing: border-box;
+    background-color: #a8bbbf;
+    margin-block-end: 0;
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+form {
+    max-inline-size: 70%; /* Allow the form to be responsive based on the viewport width */
+    border: 0.5px solid #66777a;
+    border-radius: 1.25rem;
+    padding-block: 2rem;
+    padding-inline: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .25);
+    background: #ffffff;
+}
+
+form * {
+    margin-block-end: 1rem;
+}
+
+input, button {
+    inline-size: 100%; /* Full width to accommodate mobile devices */
+    padding-block: 0.5rem; /* Padding inside inputs and button */
+    padding-inline: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+    background: #f7f7f7;
+    outline: 0;
+}
+
+input::placeholder {
+    color: #adb5bd;
+}
+
+button {
+    cursor: pointer;
+    background-color: #4c9aff;
+}
+
+button:hover {
+    background-color: #297bff;
+}
+
+button:active {
+    background-color: #1b5ebe;
+}
+
+#first-name, #last-name, #email, #birthday {
+    border: 1px solid #ced4da; /* Consistent border with input fields */
+    background-color: #e9ecef; /* Lighter background for contrast */
+}
+
+@media screen and (min-height: 1000px) {
+    form * {
+        font-size: xx-large; /* Make form visible for larger screens */
+    }
+}

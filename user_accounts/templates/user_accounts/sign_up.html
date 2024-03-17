@@ -1,0 +1,22 @@
+{% extends "user_accounts/base.html" %}
+{% load static %}
+
+
+{% block stylesheets %}
+    <link rel='stylesheet' href="{% static 'user_accounts/sign_up.css' %}">
+{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <p>{{ form.username.as_field_group }}</p>
+        <p>{{ form.first_name.as_field_group }}</p>
+        <p>{{ form.last_name.as_field_group }}</p>
+        <p>{{ form.email.as_field_group }}</p>
+        <p>{{ form.birthday.as_field_group }}</p>
+        {{ form.password1.as_field_group }}
+        {{ form.password2.as_field_group }}
+        <br>
+        <button type='submit'>Sign Up</button>
+    </form>
+{% endblock %}
