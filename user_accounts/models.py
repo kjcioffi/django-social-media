@@ -10,14 +10,13 @@ class User(AbstractUser):
     email = models.EmailField(blank=False, max_length=254, verbose_name='email address')
     birthday = models.DateField(blank=False, auto_now=False, auto_now_add=False)
 
-    def clean_fields(self, exclude=None) -> None:
-        if self.birthday is None:
-            raise ValidationError({'birthday': 'Birthday cannot be blank.'})
-
-        today = timezone.now().date()
-        age = today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day))
-        
-        if age < 18:
-            raise ValidationError({"birthday": "Must be at least 18 years of age."})
-        
+    def clean_fields(self, exclude=None) -> None:    
         super().clean_fields(exclude=exclude)
+
+        if self.birthday not in (exclude or []) and self.birthday is not None:
+            today: date = timezone.now().date()
+            age: int = today.year - self.birthday.year - ((today.month, today.day) < (self.birthday.month, self.birthday.day))
+
+            if age < 18:
+                raise ValidationError({'birthday': ['Must be 18 years or older to sign up.']})
+            
