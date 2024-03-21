@@ -47,6 +47,16 @@ class TestUserSignUpView(TestCase):
         self.assertFormError(form, 'first_name', 'This field is required.')
         self.assertFormError(form, 'last_name', 'This field is required.')
         self.assertFormError(form, 'email', 'This field is required.')
-        self.assertFormError(form, 'birthday', ['This field is required.', 'Birthday cannot be blank.'])
+        self.assertFormError(form, 'birthday', 'This field is required.')
         self.assertFormError(form, 'password1', 'This field is required.')
         self.assertFormError(form, 'password2', 'This field is required.')
+
+    def test_birthday_format_info_displayed_when_bad_data_submitted(self):
+        for date in ['1', '1900-01', '01-01', '1900/01']:
+            self.form_data['birthday'] = date
+            form = UserSignUpForm(self.form_data)
+
+            request = self.client.post(reverse('user_accounts:sign-up'), self.form_data)
+            form = request.context['form']
+
+            self.assertFormError(form, 'birthday', 'Enter a valid date in YYYY-MM-DD format.')

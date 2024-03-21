@@ -30,8 +30,13 @@ class TestUserSignUpForm(TestCase):
     def test_bad_email(self):
         self.validate_user_form_invalid('email', None, 'john.doe.example.com')
 
-    def test_bad_birthday(self):
-        self.validate_user_form_invalid('birthday', None, '', '10-25-2006')
+    def test_bad_birthday_displays_custom_error_message(self):
+        for date in ['1', '1900-01', '01-01', '1900/01']:
+            self.form_data['birthday'] = date
+            form = UserSignUpForm(self.form_data)
+
+            if not form.is_valid():
+                self.assertIn('Enter a valid date in YYYY-MM-DD format.', form.errors['birthday'])
 
     def test_form_valid(self):
         form = UserSignUpForm(self.form_data)
