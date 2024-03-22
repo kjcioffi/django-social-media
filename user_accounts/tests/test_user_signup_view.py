@@ -20,14 +20,14 @@ class TestUserSignUpView(TestCase):
                           'password2': 'temporary123'}
 
         self.response = self.client.get(reverse('user_accounts:sign-up'))
+        self.request = self.client.post(reverse('user_accounts:sign-up'), self.form_data)
         
     def test_form_in_view_context(self):
         self.assertEqual(self.response.status_code, 200)
         self.assertIn('form', self.response.context, 'The form should be available via context.')
 
     def test_form_submit_success(self):
-        request = self.client.post(reverse('user_accounts:sign-up'), self.form_data)
-        self.assertEqual(request.status_code, 302)
+        self.assertEqual(self.request.status_code, 302)
         user = User.objects.filter(username=self.form_data['username'])
         self.assertTrue(user.exists(), 'The user should save after submission.')
 
@@ -60,3 +60,7 @@ class TestUserSignUpView(TestCase):
             form = request.context['form']
 
             self.assertFormError(form, 'birthday', 'Enter a valid date in YYYY-MM-DD format.')
+
+    def test_user_redirects_to_login_after_successful_submission(self):
+        self.assertEqual(self.request.status_code, 302)
+        self.assertEqual(self.request.url, '/login/')

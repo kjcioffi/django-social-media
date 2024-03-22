@@ -1,0 +1,19 @@
+{% extends "user_accounts/base.html" %}
+{% load static %}
+
+{% block content %}
+    {% if messages %}
+    <ul class='messages'>
+        {% for message in messages %}
+        <li {% if message.tags %} class='{{ message.tags }}'{% endif %}>
+            {{ message }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <button type='submit'>Login</button>
+    </form>
+{% endblock %}
