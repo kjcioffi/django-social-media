@@ -1,4 +1,5 @@
 django
 django-environ
+django-debug-toolbar
 psycopg2
 pillow
