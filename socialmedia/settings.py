@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+from django.urls import reverse_lazy
 import environ
 import os
 from pathlib import Path
@@ -93,6 +94,10 @@ DATABASES = {
 # Default User Model
 
 AUTH_USER_MODEL = 'user_accounts.User'
+
+# LOGIN INFO
+
+LOGIN_URL = reverse_lazy('user_accounts:login')
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
