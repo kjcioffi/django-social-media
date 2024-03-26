@@ -24,4 +24,4 @@ class TestUserLoginView(TestCase):
         self.assertRedirects(self.request, '/login/')
         messages = list(login_page.context['messages'])
         self.assertEqual(len(messages), 1)
-        self.assertEqual(messages[0].message, 'Your account was successfully created!')
+        self.assertEqual(messages[0].message, 'Your account was successfully created, feel free to login!')
