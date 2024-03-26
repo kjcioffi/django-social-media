@@ -1,0 +1,7 @@
+ul.messages {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    align-items: center;
+    padding: 0;
+}

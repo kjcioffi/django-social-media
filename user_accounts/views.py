@@ -9,7 +9,7 @@ class UserSignUpView(FormView, SuccessMessageMixin):
     template_name = 'user_accounts/sign_up.html'
     form_class = UserSignUpForm
     success_url = reverse_lazy('user_accounts:login')
-    success_message = 'Your account was successfully created!'
+    success_message = 'Your account was successfully created, feel free to login!'
 
     def form_valid(self, form):
         form.save()
