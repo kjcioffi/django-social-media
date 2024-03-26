@@ -1,0 +1,16 @@
+{% extends "content_sharing/base.html" %}
+
+{% block content %}
+    <form method='POST'>
+        {% csrf_token %}
+        {% if form.errors %}
+            <ul>
+            {% for error in form.errors %}
+                <li>{{ error }}</li>
+            </ul>
+            {% endfor %}
+        {% endif %}
+        {{ form.content }}
+        <button type='submit'>Post</button>
+    </form>
+{% endblock %}
