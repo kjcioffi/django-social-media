@@ -4,13 +4,23 @@ import random
 from django.forms import ValidationError
 from django.test import TestCase
 
+from django.contrib.auth.models import User
 from content_sharing.models import Profile
 
 
 class UserProfileModelTest(TestCase):
     
     def setUp(self):
-        self.profile = Profile.objects.create()
+        self.user = User.objects.create(username='johndoe', password='j@hND03')
+        self.profile = Profile.objects.create(user=self.user)
+
+    def test_user_delete_cascades_user_profiles(self):
+        self.user.delete()
+        self.assertNotIn(self.profile, Profile.objects.all())
+
+    def test_user_profile_does_not_delete_cascade_users(self):
+        self.profile.delete()
+        self.assertIn(self.user, User.objects.all())
 
     def test_bio_empty_on_default(self):
         self.assertEqual(len(self.profile.bio), 0)
@@ -32,4 +42,6 @@ class UserProfileModelTest(TestCase):
             self.profile.full_clean()
             
         self.assertIn('bio', e.exception.error_dict, f'Bio field must be within {max_length} characters')
+
+    
     
