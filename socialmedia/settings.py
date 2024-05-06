@@ -39,6 +39,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'content_sharing',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
