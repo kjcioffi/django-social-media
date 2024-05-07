@@ -19,4 +19,4 @@ class Post(models.Model):
 
 class PostLike(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
