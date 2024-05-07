@@ -30,7 +30,7 @@ class PostModelTest(TestCase):
 
         self.assertIn(self.profile, Profile.objects.all())
 
-    def test_post_content_not_empty(self):
+    def test_post_content_not_null(self):
         post = Post(profile=self.profile, content=None)
 
         with self.assertRaises(ValidationError) as e:
@@ -38,8 +38,22 @@ class PostModelTest(TestCase):
 
         self.assertIn('content', e.exception.error_dict)
 
-    def test_post_has_max_30_chars(self):
-        pass
+    def test_post_content_not_empty(self):
+        post = Post(profile=self.profile, content='')
 
+        with self.assertRaises(ValidationError) as e:
+            post.clean_fields()
+
+        self.assertIn('content', e.exception.error_dict)
+
+    def test_post_has_max_30_chars(self):
+        max_length = Post._meta.get_field('content').max_length
+
+        with self.assertRaises(ValidationError):
+            self.post.content = ''.join(
+                random.choice(string.ascii_letters) for _ in range(max_length + 1)
+                )
+            self.post.clean_fields()
+    
     def test_time_stamp_not_empty(self):
         pass
