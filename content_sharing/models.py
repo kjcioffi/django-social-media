@@ -14,7 +14,7 @@ class Profile(models.Model):
     pic = models.ImageField(upload_to='', default='default.jpg')
 
     def __str__(self) -> str:
-        return self.user
+        return self.user.username
     
 
 class Post(models.Model):
