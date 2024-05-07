@@ -11,4 +11,4 @@ class Profile(models.Model):
 
 class Post(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    
+    content = models.CharField()
