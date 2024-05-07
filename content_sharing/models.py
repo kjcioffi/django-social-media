@@ -8,3 +8,7 @@ class Profile(models.Model):
     bio = models.CharField(max_length=600, blank=True)
     pic = models.ImageField(upload_to='', default='default.jpg')
     
+
+class Post(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    
