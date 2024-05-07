@@ -54,4 +54,10 @@ class PostModelTest(TestCase):
             self.post.clean_fields()
     
     def test_time_stamp_not_empty(self):
-        pass
+        post = Post(profile=self.profile, 
+                    content=''.join(random.choice(string.ascii_letters) for _ in range(50)))
+        
+        post.save()
+        
+        self.assertNotEqual(post.created, None)
+        self.assertNotEqual(post.created, '')
