@@ -15,3 +15,8 @@ class Post(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     content = models.CharField(max_length=30000)
     created = models.DateField(auto_now_add=timezone.now().date)
+
+
+class PostLike(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    
