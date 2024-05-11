@@ -87,6 +87,9 @@ DATABASES = {
     'default': env.db()
 }
 
+# Authentication
+
+LOGIN_REDIRECT_URL = '/'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
