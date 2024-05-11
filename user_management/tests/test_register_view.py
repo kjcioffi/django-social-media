@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 
 from django.urls import reverse
 
+from content_sharing.models import Profile
+
 
 class RegisterViewTest(TestCase):
 
@@ -25,6 +27,22 @@ class RegisterViewTest(TestCase):
         try:
             user = User.objects.filter(username='johndoe')
             self.assertIsNotNone(user)
+        except User.DoesNotExist:
+            self.fail('User not created like expected.')
+
+    def test_successful_user_creation(self):
+        self.assertEqual(self.response.status_code, 302)
+        
+        try:
+            user = User.objects.get(username='johndoe')
+            profile = Profile.objects.get(user=user)
+            
+            self.assertIsNotNone(profile)
+            self.assertEqual(profile.user, user)
+
+        except Profile.DoesNotExist:
+            self.fail('Profile not created like expected.')
+            
         except User.DoesNotExist:
             self.fail('User not created like expected.')
 
