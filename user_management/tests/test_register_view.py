@@ -27,4 +27,9 @@ class RegisterViewTest(TestCase):
             self.fail('User not created like expected.')
 
     def test_redirect_to_login(self):
-        pass
+        redirect = self.client.post(reverse('user_management:register'),
+                                    {'username': 'johndoe', 'password1': 'crdRBDwEGk9Cr03FcPJC',
+                                                               'password2': 'crdRBDwEGk9Cr03FcPJC'},
+                                                               follow=True)
+        self.assertEqual(redirect.status_code, 200)
+        self.assertRedirects(redirect, reverse('user_management:login'))
