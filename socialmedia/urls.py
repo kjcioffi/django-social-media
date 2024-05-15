@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+    path('', include('content_sharing.urls', namespace='content_sharing')),
     path('', include('user_management.urls', namespace='user_management')),
     path('admin/', admin.site.urls),
 ]

@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+from django.urls import reverse_lazy
+
 import os
 from pathlib import Path
 import environ
@@ -89,6 +91,7 @@ DATABASES = {
 
 # Authentication
 
+LOGIN_URL = reverse_lazy('user_management:login')
 LOGIN_REDIRECT_URL = '/'
 
 # Password validation
