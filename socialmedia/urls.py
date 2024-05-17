@@ -17,8 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from django.conf.urls.static import static
+
+from socialmedia import settings
+
 urlpatterns = [
     path('', include('content_sharing.urls', namespace='content_sharing')),
     path('', include('user_management.urls', namespace='user_management')),
     path('admin/', admin.site.urls),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
