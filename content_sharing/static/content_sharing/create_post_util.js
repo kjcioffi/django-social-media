@@ -24,23 +24,32 @@ class CreatePostUtil {
      * @param {Element} postContentElement 
      */
     sendPostContent(postContentElement) {
-        try {
-            let request;
-            if (postContentElement.value.length > 0) {
-                request = fetch("/api/create_post", {
-                    "method": "POST",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                        "X-CSRFToken": this._getCookie('csrftoken')
-                    },
-                    body: 'content=' + postContentElement.value
-                });
-            } else {
-                alert('Something went wrong, please ensure your textbox is not empty.');
-            }
-
-        } catch(error) {
-            console.error('There was a problem with post creation: ', error.message);
+        if (postContentElement.value.length > 0) {
+            fetch("/api/create_post", {
+                "method": "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRFToken": this._getCookie('csrftoken')
+                },
+                body: 'content=' + encodeURIComponent(postContentElement.value)
+            })
+            .then(response => {
+                return response.json().then(data => {
+                    if (response.status === 201) {
+                        return data;
+                    } else {
+                        throw { ...data };
+                    }
+                })
+            })
+            .catch(response => {
+                let errorMessage = document.createElement('li');
+                errorMessage.textContent = response.failure;
+                const errorList = document.querySelector('ul');
+                errorList.append(errorMessage);
+            });
+        } else {
+            alert('Something went wrong, please ensure your textbox is not empty.');
         }
     }
 
