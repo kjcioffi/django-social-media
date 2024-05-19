@@ -28,6 +28,7 @@ def index(request):
 
     return render(request, 'content_sharing/index.html', {'form': form, 'posts': posts_in_past_day})
 
+@login_required
 def profile(request, username: str):
     """
     A page that represents a user and their social engagement.

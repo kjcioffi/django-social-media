@@ -26,5 +26,10 @@ class TestUtil():
         return Profile.objects.create(user=user)
 
     def create_user(self):
-        return User.objects.create_user(username='johndoe', password='j@hND03')
+        user = User.objects.create_user(username='johndoe', password='j@hND03')
+        self.client.login(username=user.username, password='j@hND03')
+        return user
+    
+    def logout(self):
+        self.client.logout()
     
