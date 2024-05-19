@@ -1,9 +1,14 @@
+from django.test import Client
+from django.urls import reverse
 from content_sharing.models import Post, Profile
 
 from django.contrib.auth.models import User
 
 
 class TestUtil():
+
+    def __init__(self):
+        self.client = Client()
 
     def create_posts(self, number_of_posts: int, profile: Profile):
         """
@@ -13,6 +18,9 @@ class TestUtil():
         """
         for _ in range(number_of_posts):
             Post.objects.create(profile=profile)
+
+    def get_request(self, path: str, *args, **kwargs):
+        return self.client.get(reverse(path, args=args, kwargs=kwargs))
 
     def create_profile(self, user: User):
         return Profile.objects.create(user=user)

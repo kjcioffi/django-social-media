@@ -2,7 +2,7 @@ import datetime
 from django.db import DataError
 from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from django.contrib.auth.decorators import login_required
 
@@ -10,6 +10,9 @@ from django.utils import timezone
 
 from content_sharing.forms import PostForm
 from content_sharing.models import Post, Profile
+
+from django.contrib.auth.models import User
+
 
 @login_required
 def index(request):
@@ -24,6 +27,14 @@ def index(request):
     form = PostForm()
 
     return render(request, 'content_sharing/index.html', {'form': form, 'posts': posts_in_past_day})
+
+def profile(request, username: str):
+    """
+    A page that represents a user and their social engagement.
+    """
+    user = get_object_or_404(User, username=username)
+    profile = get_object_or_404(Profile, user=user)
+    return render(request, 'content_sharing/profile.html', {'profile': profile})
 
 @require_http_methods(["POST"])
 def create_post(request):
