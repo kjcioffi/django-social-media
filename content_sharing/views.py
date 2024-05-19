@@ -21,17 +21,7 @@ def index(request):
     """
     past_day = timezone.now() - datetime.timedelta(days=1)
     posts_in_past_day = Post.objects.filter(created__range=(past_day, timezone.now()))
-
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-
-        if form.is_valid():
-            breakpoint()
-            post = form.save(commit=False)
-            post.profile = Profile.objects.get(user=request.user)
-            post.save()
-    else:
-        form = PostForm()
+    form = PostForm()
 
     return render(request, 'content_sharing/index.html', {'form': form, 'posts': posts_in_past_day})
 
