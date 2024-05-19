@@ -36,6 +36,8 @@ class CreatePostUtil {
             .then(response => {
                 return response.json().then(data => {
                     if (response.status === 201) {
+                        let errorList = document.querySelector('ul');
+                        errorList.innerHTML = "<ul></ul>";
                         return data;
                     } else {
                         throw { ...data };
