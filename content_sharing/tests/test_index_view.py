@@ -22,7 +22,7 @@ class IndexViewTest(TestCase):
 
     def test_correct_form_in_context(self):
         self.assertEqual(self.response.status_code, 200)
-        form = self.response.context['form']
+        form = self.response.context['post_form']
         self.assertTrue(form)
         self.assertIsInstance(form, PostForm)
 

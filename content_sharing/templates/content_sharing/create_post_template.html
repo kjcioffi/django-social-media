@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang='en'>
+    <head>
+        
+    </head>
+    <body>
+        {% if post_form %}
+        <ul id='post-form-errors'>
+
+        </ul>
+        <form id='create-post'>
+            {% csrf_token %}
+            {{ post_form.content }}
+            <button type='submit'>Post</button>
+        </form>
+        {% endif %}
+
+        {% if post_form %}
+        <script src="{% static 'content_sharing/create_post_util.js' %}"></script>
+        {% endif %}
+    </body>
+</html>

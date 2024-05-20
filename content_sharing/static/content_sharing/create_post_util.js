@@ -36,7 +36,7 @@ class CreatePostUtil {
             .then(response => {
                 return response.json().then(data => {
                     if (response.status === 201) {
-                        let errorList = document.querySelector('ul');
+                        let errorList = document.getElementById('post-form-errors');
                         errorList.innerHTML = "<ul></ul>";
                         return data;
                     } else {
@@ -47,7 +47,7 @@ class CreatePostUtil {
             .catch(response => {
                 let errorMessage = document.createElement('li');
                 errorMessage.textContent = response.failure;
-                const errorList = document.querySelector('ul');
+                const errorList = document.getElementById('post-form-errors');
                 errorList.append(errorMessage);
             });
         } else {
