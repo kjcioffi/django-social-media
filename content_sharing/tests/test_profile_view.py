@@ -1,6 +1,7 @@
 from django.test import Client, TestCase
 from django.urls import reverse
 
+from content_sharing.forms import PostForm
 from content_sharing.tests.utils import TestUtil
 
 
@@ -21,3 +22,8 @@ class ProfileViewTest(TestCase):
     def test_profile_populates_by_username(self):
         context_profile = self.response.context['profile']
         self.assertEqual(context_profile.user.username, self.profile.user.username)
+
+    def test_post_form_in_context(self):
+        post_form = self.response.context.get('post_form')
+        self.assertIsNotNone(post_form)
+        self.assertIsInstance(post_form, PostForm)
