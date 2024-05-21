@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.utils import timezone
 
-from content_sharing.forms import PostForm
+from content_sharing.forms import BioForm, PostForm
 from content_sharing.models import Post, Profile
 
 from django.contrib.auth.models import User
@@ -36,8 +36,9 @@ def profile(request, username: str):
     user = get_object_or_404(User, username=username)
     profile = get_object_or_404(Profile, user=user)
     post_form = PostForm()
+    bio_form = BioForm()
 
-    return render(request, 'content_sharing/profile.html', {'profile': profile, 'post_form': post_form})
+    return render(request, 'content_sharing/profile.html', {'profile': profile, 'post_form': post_form, 'bio_form': bio_form})
 
 @require_http_methods(["POST"])
 def create_post(request):
