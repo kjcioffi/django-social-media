@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from content_sharing.models import Post
+from content_sharing.models import Post, Profile
 
 
 class PostForm(ModelForm):
@@ -10,3 +10,8 @@ class PostForm(ModelForm):
     class Meta:
         model = Post
         fields = ['content']
+
+class BioForm(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['bio']

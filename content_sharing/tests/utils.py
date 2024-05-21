@@ -1,3 +1,5 @@
+import random
+import string
 from django.test import Client
 from django.urls import reverse
 from content_sharing.models import Post, Profile
@@ -32,4 +34,7 @@ class TestUtil():
     
     def logout(self):
         self.client.logout()
+
+    def random_string_generator(self, length):
+        return ''.join(random.choice(string.ascii_letters) for _ in range(length))
     
