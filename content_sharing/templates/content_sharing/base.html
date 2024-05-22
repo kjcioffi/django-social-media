@@ -12,6 +12,10 @@
             <input type='search' placeholder='Search'>
             <a href="{% url 'content_sharing:profile' request.user %}">My Profile</a>
             <a href="{% url 'content_sharing:index' %}">About Us</a>
+            <form action="{% url 'user_management:logout' %}" method="POST">
+                {% csrf_token %}
+                <button  type='submit'>Logout</button>
+            </form>
         </nav>
         {% block body %}
         {% endblock %}

@@ -93,6 +93,7 @@ DATABASES = {
 
 LOGIN_URL = reverse_lazy('user_management:login')
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = LOGIN_URL
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
