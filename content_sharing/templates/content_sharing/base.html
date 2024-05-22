@@ -6,6 +6,13 @@
         
     </head>
     <body>
+        <nav>
+            <img src="{% static 'content_sharing/images/logo.jpg' %}">
+            <aside>Connectivity</aside>
+            <input type='search' placeholder='Search'>
+            <a href="{% url 'content_sharing:profile' request.user %}">My Profile</a>
+            <a href="{% url 'content_sharing:index' %}">About Us</a>
+        </nav>
         {% block body %}
         {% endblock %}
         {% if post_form %}
