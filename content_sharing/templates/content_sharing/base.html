@@ -1,10 +1,13 @@
 <!DOCTYPE html>
+<!---Functionality that shall be used across the entire platform.-->
 {% load static %}
 <html lang='en'>
     <head>
         
     </head>
     <body>
+        {% block body %}
+        {% endblock %}
         {% if post_form %}
         <ul id='post-form-errors'>
 
@@ -19,5 +22,8 @@
         {% if post_form %}
         <script src="{% static 'content_sharing/create_post_util.js' %}"></script>
         {% endif %}
+        
+        {% block scripts %}
+        {% endblock %}
     </body>
 </html>
