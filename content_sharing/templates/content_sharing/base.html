@@ -3,19 +3,24 @@
 {% load static %}
 <html lang='en'>
     <head>
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel='stylesheet' href="{% static 'content_sharing/base.css' %}">
     </head>
     <body>
         <nav>
-            <img src="{% static 'content_sharing/images/logo.jpg' %}">
-            <aside>Connectivity</aside>
-            <input type='search' placeholder='Search'>
-            <a href="{% url 'content_sharing:profile' request.user %}">My Profile</a>
-            <a href="{% url 'content_sharing:index' %}">About Us</a>
-            <form action="{% url 'user_management:logout' %}" method="POST">
-                {% csrf_token %}
-                <button  type='submit'>Logout</button>
-            </form>
+            <section id="platform-info">
+                <a href="{% url 'content_sharing:index' %}"><img src="{% static 'content_sharing/images/logo.jpg' %}"></a>
+                <aside>Connectivity</aside>
+            </section>
+            <section id="other-nav-info">
+                <a href="{% url 'content_sharing:index' %}">About Us</a>
+                <a href="{% url 'content_sharing:profile' request.user %}">My Profile</a>
+                <input type='search' placeholder='Search'>
+                <form action="{% url 'user_management:logout' %}" method="POST">
+                    {% csrf_token %}
+                    <button  type='submit'>Logout</button>
+                </form>
+            </section>
         </nav>
         {% block body %}
         {% endblock %}
@@ -31,7 +36,7 @@
         {% endif %}
 
         {% if post_form %}
-        <script src="{% static 'content_sharing/create_post_util.js' %}"></script>
+        <script src="{% static 'content_sharing/js/create_post_util.js' %}"></script>
         {% endif %}
         
         {% block scripts %}
