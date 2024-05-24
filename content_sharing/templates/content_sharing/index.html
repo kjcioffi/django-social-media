@@ -1,1 +1,11 @@
 {% extends "content_sharing/base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+    <link rel='stylesheet' href="{% static 'content_sharing/index.css' %}">
+{% endblock %}
+
+{% block body %}
+    <section id='newsfeed'>
+    </section>
+{% endblock %}

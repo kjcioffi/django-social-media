@@ -1,0 +1,7 @@
+/* Center only for the newfeed */
+#create-post-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-block-start: 1.5rem;
+}

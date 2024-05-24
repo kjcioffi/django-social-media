@@ -5,6 +5,8 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel='stylesheet' href="{% static 'content_sharing/base.css' %}">
+        {% block stylesheets %}
+        {% endblock %}
     </head>
     <body>
         <nav>
@@ -22,17 +24,17 @@
                 </form>
             </section>
         </nav>
-        {% block body %}
-        {% endblock %}
         {% if post_form %}
-        <ul id='post-form-errors'>
+        <section id='create-post-container'>
+            <ul id='post-form-errors'>
 
-        </ul>
-        <form id='create-post'>
-            {% csrf_token %}
-            {{ post_form.content }}
-            <button type='submit'>Post</button>
-        </form>
+            </ul>
+            <form id='create-post'>
+                {% csrf_token %}
+                {{ post_form.content }}
+                <button type='submit'>Post</button>
+            </form>
+        </section>
         {% endif %}
 
         {% if post_form %}
