@@ -37,10 +37,14 @@
         </section>
         {% endif %}
 
-        {% if post_form %}
-        <script src="{% static 'content_sharing/js/create_post_util.js' %}"></script>
+        {% if posts %}
+            {% block posts %}
+            {% endblock %}
+        {% else %}
+            <p>No one has been active!</p>
         {% endif %}
-        
+
+        <script src="{% static 'content_sharing/js/create_post_util.js' %}"></script>
         {% block scripts %}
         {% endblock %}
     </body>
