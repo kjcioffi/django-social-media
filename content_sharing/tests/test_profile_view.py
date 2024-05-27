@@ -17,7 +17,7 @@ class ProfileViewTest(TestCase):
         self.util.logout()
         response = self.util.get_request('content_sharing:profile', self.profile.user.username)
         self.assertFalse(response.wsgi_request.user.is_authenticated)
-        self.assertRedirects(response, f'/login/?next=/{self.profile.user.username}')
+        self.assertRedirects(response, f'/login/?next=/profile/{self.profile.user.username}')
 
     def test_profile_populates_by_username(self):
         context_profile = self.response.context['profile']
