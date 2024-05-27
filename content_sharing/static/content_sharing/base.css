@@ -127,3 +127,34 @@ form#create-post button:hover {
     background-color: #0C7ABF;
 }
 
+#posts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.post {
+    background: #3b3b3b;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+    border-radius: 4px;
+    max-inline-size: 600px;
+    inline-size: 100%;
+    padding-inline: 1rem;
+    padding-block: 1rem;
+    margin-block: 1.5em;
+}
+
+.post-info {
+    display: flex;
+}
+
+.post-info img {
+    block-size: 45px;
+    margin-inline-end: 1.25rem;
+}
+
+.post-contents {
+    line-break: anywhere;
+    white-space: normal;
+}
