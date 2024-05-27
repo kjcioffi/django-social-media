@@ -11,7 +11,7 @@ class Profile(models.Model):
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     bio = models.CharField(max_length=600, blank=True)
-    pic = models.ImageField(upload_to='', default='default.jpg')
+    pic = models.ImageField(upload_to='', default='default.png')
 
     def __str__(self) -> str:
         return self.user.username

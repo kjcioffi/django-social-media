@@ -44,4 +44,4 @@ class UserProfileModelTest(TestCase):
         self.assertIn('bio', e.exception.error_dict, f'Bio field must be within {max_length} characters')
 
     def test_profile_picture_has_default_upon_creation(self):
-        self.assertEqual(self.profile.pic.url, '/default.jpg')
+        self.assertEqual(self.profile.pic.url, '/media/default.png')
