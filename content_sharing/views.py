@@ -23,7 +23,7 @@ def index(request):
     users to create new posts.
     """
     past_day = timezone.now() - datetime.timedelta(days=1)
-    posts_in_past_day = Post.objects.filter(created__range=(past_day, timezone.now()))
+    posts_in_past_day = Post.objects.filter(created__range=(past_day, timezone.now())).order_by('-created')
     post_form = PostForm()
 
     return render(request, 'content_sharing/index.html', {'post_form': post_form, 'posts': posts_in_past_day})
