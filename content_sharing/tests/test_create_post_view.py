@@ -54,7 +54,7 @@ class CreatePostView(TestCase):
         json = response.json()
         created = timezone.now().date()
 
-        self.assertEqual({'creator': response.wsgi_request.user.username, 'content': self.data['content'], 'created': created.isoformat()}, json)
+        self.assertEqual({'profile_picture': self.profile.pic.url, 'creator': response.wsgi_request.user.username, 'content': self.data['content'], 'created': created.isoformat()}, json)
 
     def test_exceeded_max_length(self):
         self.max_length += 1
