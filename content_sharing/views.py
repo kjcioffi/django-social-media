@@ -49,7 +49,8 @@ def create_post(request):
     try:
         profile = Profile.objects.get(user=request.user)
         post = Post.objects.create(profile=profile, content=request.POST.get('content'))
-        return JsonResponse({'creator': post.profile.__str__(), 'content': post.content, 'created': post.created}, status=201)
+        return JsonResponse({'profile_picture': post.profile.pic.url, 'creator': post.profile.__str__(),
+                             'content': post.content, 'created': post.created}, status=201)
     
     except DataError as e:
         return JsonResponse({'failure': e.__str__()}, status=400)
