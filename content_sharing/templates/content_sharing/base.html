@@ -38,8 +38,21 @@
         {% endif %}
 
         {% if posts %}
-            {% block posts %}
-            {% endblock %}
+        <section id='posts'>
+            {% for post in posts %}
+                <aside class='post'>
+                    <header class='post-info'>
+                        <img src="{{ post.profile.pic.url }}">
+                        <div class='post-creation'>
+                            <em>{{ post.profile.user }}</em>
+                            <br>
+                            <small>{{ post.created }}</small>
+                        </div>
+                    </header>
+                    <p class='post-contents'>{{ post.content }}</p>
+                </aside>
+            {% endfor %}
+        </section>
         {% else %}
             <p>No one has been active!</p>
         {% endif %}
