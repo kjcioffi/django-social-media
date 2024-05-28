@@ -89,14 +89,57 @@ class CreatePostUtil {
         const posts = document.getElementById('posts');
         const post = document.createElement('aside');
         post.classList.add('post');
-        post.append(this._createPostMetaData());
+        post.append(this._createPostMetaData(json.profile_picture, json.creator, json.created));
         posts.insertBefore(post, posts.firstChild);
     }
 
-    _createPostMetaData() {
+    /**
+     * Generates the meta data of the post
+     * with information such as the image.
+     * @param {string} profilePicturePath 
+     * @returns 
+     */
+    _createPostMetaData(profilePicturePath, username, date) {
         const header = document.createElement('header');
         header.classList.add('post-info');
+        header.append(this._createProfilePictureElement(profilePicturePath));
+        header.append(this._createPostCreationInfo(username, date));
         return header;
+    }
+
+    _createProfilePictureElement(profilePicture) {
+        const imageElement = document.createElement('img');
+        imageElement.src = profilePicture;
+        imageElement.alt = 'The profile picture of the user for their profile';
+        return imageElement;
+    }
+
+    /**
+     * Creates a container with post creation info
+     * to add it to the post meta data container.
+     * @param {string} creator 
+     * @param {string} date 
+     * @returns 
+     */
+    _createPostCreationInfo(creator, date) {
+        const postCreation = document.createElement('div');
+        postCreation.classList.add('post-creation');
+        postCreation.append(this._createUsernameElement(creator));
+        postCreation.append(document.createElement('br'));
+        postCreation.append(this._createDateElement(date));
+        return postCreation;
+    }
+
+    _createUsernameElement(creator) {
+        const usernameElement = document.createElement('em');
+        usernameElement.textContent = creator;
+        return usernameElement;
+    }
+
+    _createDateElement(date) {
+        const dateElement = document.createElement('small');
+        dateElement.textContent = date;
+        return dateElement;
     }
 }
 
