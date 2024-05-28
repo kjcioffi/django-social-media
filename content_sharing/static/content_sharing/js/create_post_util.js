@@ -44,9 +44,13 @@ class CreatePostUtil {
                     }
                 })
             })
+            .then(data => {
+                this._createPost(data);
+            })
             .catch(response => {
                 let errorMessage = document.createElement('li');
                 errorMessage.textContent = response.failure;
+                
                 const errorList = document.getElementById('post-form-errors');
                 errorList.append(errorMessage);
             });
@@ -74,6 +78,18 @@ class CreatePostUtil {
             }
         }
         return cookieValue;
+    }
+
+    /**
+     * Consumes the JSON of the AJAX sent/recieved
+     * from the backend.
+     * @param {Response} json 
+     */
+    _createPost(json) {
+        const posts = document.getElementById('posts');
+        const post = document.createElement('aside');
+        post.classList.add('post');
+        posts.insertBefore(post, posts.firstChild);
     }
 }
 
