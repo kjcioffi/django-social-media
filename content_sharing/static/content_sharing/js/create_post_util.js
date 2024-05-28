@@ -145,6 +145,7 @@ class CreatePostUtil {
 
     _createContentElement(content) {
         const contentElement = document.createElement('p');
+        contentElement.classList.add('post-contents');
         contentElement.textContent = content;
         return contentElement;
     }
