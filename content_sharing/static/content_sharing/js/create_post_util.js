@@ -90,6 +90,7 @@ class CreatePostUtil {
         const post = document.createElement('aside');
         post.classList.add('post');
         post.append(this._createPostMetaData(json.profile_picture, json.creator, json.created));
+        post.append(this._createContentElement(json.content));
         posts.insertBefore(post, posts.firstChild);
     }
 
@@ -140,6 +141,12 @@ class CreatePostUtil {
         const dateElement = document.createElement('small');
         dateElement.textContent = date;
         return dateElement;
+    }
+
+    _createContentElement(content) {
+        const contentElement = document.createElement('p');
+        contentElement.textContent = content;
+        return contentElement;
     }
 }
 
