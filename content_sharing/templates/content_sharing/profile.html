@@ -1,4 +1,15 @@
 {% extends "content_sharing/base.html" %}
+{% load static %}
 
-{% block body %}
+{% block stylesheets %}
+    <link rel='stylesheet' href="{% static 'content_sharing/profile.css' %}">
+{% endblock %}
+
+{% block bio %}
+    {% if request.user == profile.user %}
+    <form id='update-bio' method='POST'>
+        {{ bio_form.bio }}
+        <button class='btn' type='submit'>Update</button>
+    </form>
+    {% endif %}
 {% endblock %}

@@ -24,6 +24,10 @@
                 </form>
             </section>
         </nav>
+
+        {% block bio %}
+        {% endblock %}
+
         {% if post_form %}
         <section id='create-post-container'>
             <ul id='post-form-errors'>

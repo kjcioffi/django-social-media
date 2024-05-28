@@ -12,6 +12,8 @@ class PostForm(ModelForm):
         fields = ['content']
 
 class BioForm(ModelForm):
+    bio = forms.CharField(widget=forms.Textarea({'id': 'bio'}))
+
     class Meta:
         model = Profile
         fields = ['bio']
