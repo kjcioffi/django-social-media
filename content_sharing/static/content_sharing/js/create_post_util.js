@@ -89,7 +89,14 @@ class CreatePostUtil {
         const posts = document.getElementById('posts');
         const post = document.createElement('aside');
         post.classList.add('post');
+        post.append(this._createPostMetaData());
         posts.insertBefore(post, posts.firstChild);
+    }
+
+    _createPostMetaData() {
+        const header = document.createElement('header');
+        header.classList.add('post-info');
+        return header;
     }
 }
 
