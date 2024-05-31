@@ -25,8 +25,9 @@ class TestUtil:
     def get_request(self, path: str, *args, **kwargs):
         return self.client.get(reverse(path, args=args, kwargs=kwargs))
 
-    def post_request(self, path: str, *args, **kwargs):
-        return self.client.post(reverse(path), args=args, kwargs=kwargs)
+    def post_request(self, path: str, data=None, *args, **kwargs):
+        url = reverse(path, args=args, kwargs=kwargs)
+        return self.client.post(url, data=data)
 
     def create_profile(self, user: User):
         return Profile.objects.create(user=user)

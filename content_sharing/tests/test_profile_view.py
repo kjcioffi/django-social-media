@@ -38,3 +38,39 @@ class ProfileViewTest(TestCase):
         bio_form = self.response.context.get("bio_form")
         self.assertIsNotNone(bio_form)
         self.assertIsInstance(bio_form, BioForm)
+
+    def test_text_based_updates_to_bio_save(self):
+        response = self.util.post_request(
+            "content_sharing:profile",
+            data={"bio": "It's me, John Doe."},
+            username=self.profile.user.username,
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        self.profile.refresh_from_db()
+        self.assertEqual("It's me, John Doe.", self.profile.bio)
+
+    def test_empty_bio_saves(self):
+        response = self.util.post_request(
+            "content_sharing:profile",
+            data={"bio": ""},
+            username=self.profile.user.username,
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        self.profile.refresh_from_db()
+        self.assertEqual("", self.profile.bio)
+
+    def test_bio_accepts_pythonic_type_none(self):
+        response = self.util.post_request(
+            "content_sharing:profile",
+            data={},
+            username=self.profile.user.username,
+        )
+
+        self.assertEqual(response.status_code, 200)
+
+        self.profile.refresh_from_db()
+        self.assertEqual("", self.profile.bio)

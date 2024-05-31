@@ -41,7 +41,16 @@ def profile(request, username: str):
     user = get_object_or_404(User, username=username)
     profile = get_object_or_404(Profile, user=user)
     post_form = PostForm()
-    bio_form = BioForm()
+
+    if request.method == "POST":
+        bio_form = BioForm(request.POST)
+
+        if bio_form.is_valid():
+            profile.bio = bio_form.cleaned_data["bio"]
+            profile.save()
+
+    else:
+        bio_form = BioForm()
 
     return render(
         request,
