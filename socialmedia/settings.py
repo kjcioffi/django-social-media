@@ -10,11 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-from django.urls import reverse_lazy
-
 import os
 from pathlib import Path
+
 import environ
+from django.urls import reverse_lazy
 
 env = environ.Env(DEBUG=(bool, False))
 
