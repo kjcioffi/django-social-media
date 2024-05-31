@@ -8,6 +8,7 @@
 {% block bio %}
     {% if request.user == profile.user %}
     <form id='update-bio' method='POST'>
+        {% csrf_token %}
         {{ bio_form.bio }}
         <button class='btn' type='submit'>Update</button>
     </form>
