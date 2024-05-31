@@ -1,13 +1,14 @@
 import random
 import string
-from django.test import Client
-from django.urls import reverse
-from content_sharing.models import Post, Profile
 
 from django.contrib.auth.models import User
+from django.test import Client
+from django.urls import reverse
+
+from content_sharing.models import Post, Profile
 
 
-class TestUtil():
+class TestUtil:
 
     def __init__(self):
         self.client = Client()
@@ -23,7 +24,7 @@ class TestUtil():
 
     def get_request(self, path: str, *args, **kwargs):
         return self.client.get(reverse(path, args=args, kwargs=kwargs))
-    
+
     def post_request(self, path: str, *args, **kwargs):
         return self.client.post(reverse(path), args=args, kwargs=kwargs)
 
@@ -31,13 +32,12 @@ class TestUtil():
         return Profile.objects.create(user=user)
 
     def create_user(self):
-        user = User.objects.create_user(username='johndoe', password='j@hND03')
-        self.client.login(username=user.username, password='j@hND03')
+        user = User.objects.create_user(username="johndoe", password="j@hND03")
+        self.client.login(username=user.username, password="j@hND03")
         return user
-    
+
     def logout(self):
         self.client.logout()
 
     def random_string_generator(self, length):
-        return ''.join(random.choice(string.ascii_letters) for _ in range(length))
-    
+        return "".join(random.choice(string.ascii_letters) for _ in range(length))
