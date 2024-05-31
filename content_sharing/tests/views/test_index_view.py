@@ -8,7 +8,7 @@ from django.utils import timezone
 from content_sharing.forms import PostForm
 from content_sharing.models import Post
 
-from .utils import TestUtil
+from content_sharing.tests.utils import TestUtil
 
 
 class IndexViewTest(TestCase):

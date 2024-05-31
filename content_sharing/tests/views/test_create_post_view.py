@@ -8,8 +8,8 @@ from django.urls import reverse
 from django.utils import timezone
 
 from content_sharing.models import Post
+from content_sharing.tests.utils import TestUtil
 
-from .utils import TestUtil
 
 
 class CreatePostView(TestCase):

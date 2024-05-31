@@ -1,5 +1,4 @@
-from django.test import Client, TestCase
-from django.urls import reverse
+from django.test import TestCase
 
 from content_sharing.forms import BioForm, PostForm
 from content_sharing.tests.utils import TestUtil
