@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path, include
 
@@ -22,7 +23,7 @@ from django.conf.urls.static import static
 from socialmedia import settings
 
 urlpatterns = [
-    path('', include('content_sharing.urls', namespace='content_sharing')),
-    path('', include('user_management.urls', namespace='user_management')),
-    path('admin/', admin.site.urls),
+    path("", include("content_sharing.urls", namespace="content_sharing")),
+    path("", include("user_management.urls", namespace="user_management")),
+    path("admin/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
