@@ -1,5 +1,6 @@
 # Files
 .env
+db.sqlite
 
 # Directories
 venv
