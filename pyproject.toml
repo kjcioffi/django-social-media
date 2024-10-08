@@ -1,0 +1,20 @@
+[project]
+name = "social-media"
+version = "0.1.0"
+description = """
+                A full stack application with an MVP focusing on authentication and content sharing.
+                The scope of content sharing includes creating posts, reacting to posts, a personal profile,
+                and the ability to update the bio in a user's profile.
+            """
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "django==5.0",
+    "django-environ==0.11.2",
+    "django-debug-toolbar==4.4.2",
+    "psycopg2==2.9.9",
+    "pillow==10.3.0",
+    "django-allauth",
+    "ruff",
+    "uv",
+]
