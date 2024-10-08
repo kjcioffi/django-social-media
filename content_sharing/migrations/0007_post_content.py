@@ -11,9 +11,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AddField(
-            model_name='post',
-            name='content',
-            field=models.CharField(default=''),
+            model_name="post",
+            name="content",
+            field=models.CharField(default="", max_length=30000),
             preserve_default=False,
         ),
     ]
