@@ -14,7 +14,6 @@ import os
 from pathlib import Path
 
 import environ
-from django.urls import reverse_lazy
 
 env = environ.Env(DEBUG=(bool, False))
 
@@ -39,8 +38,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # third party
+    "allauth",
+    "allauth.account",
+    # custom apps
     "user_management",
     "content_sharing",
+    # default
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -50,6 +54,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # third party
+    "allauth.account.middleware.AccountMiddleware",
+    # default
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -77,6 +84,13 @@ TEMPLATES = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+    # `allauth` specific authentication methods, such as login by email
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
 WSGI_APPLICATION = "socialmedia.wsgi.application"
 
 
@@ -92,9 +106,9 @@ DATABASES = {
 
 # Authentication
 
-LOGIN_URL = reverse_lazy("user_management:login")
 LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = LOGIN_URL
+ACCOUNT_LOGOUT_REDIRECT_URL = "account_login"
+ACCOUNT_SIGNUP_REDIRECT_URL = "account_login" 
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
