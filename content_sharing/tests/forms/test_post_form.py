@@ -9,7 +9,6 @@ from content_sharing.models import Post, Profile
 
 
 class PostFormTest(TestCase):
-
     def setUp(self):
         self.data = {}
 

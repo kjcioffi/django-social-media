@@ -9,7 +9,6 @@ from content_sharing.models import Post, Profile
 
 
 class TestUtil:
-
     def __init__(self):
         self.client = Client()
 

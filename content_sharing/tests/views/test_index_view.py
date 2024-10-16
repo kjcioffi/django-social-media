@@ -12,7 +12,6 @@ from content_sharing.tests.utils import TestUtil
 
 
 class IndexViewTest(TestCase):
-
     def setUp(self):
         self.utils = TestUtil()
         self.profile = self.utils.create_profile(user=self.utils.create_user())

@@ -11,9 +11,7 @@ from content_sharing.models import Post
 from content_sharing.tests.utils import TestUtil
 
 
-
 class CreatePostView(TestCase):
-
     def setUp(self):
         self.max_length = Post._meta.get_field("content").max_length
         self.data = {

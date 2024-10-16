@@ -6,7 +6,6 @@ from content_sharing.tests.utils import TestUtil
 
 
 class BioFormTest(TestCase):
-
     def setUp(self):
         self.utils = TestUtil()
         self.bio_max_length = Profile._meta.get_field("bio").max_length

@@ -9,7 +9,6 @@ from content_sharing.models import Profile
 
 
 class UserProfileModelTest(TestCase):
-
     def setUp(self):
         self.user = User.objects.create(username="johndoe", password="j@hND03")
         self.profile = Profile.objects.create(user=self.user)
