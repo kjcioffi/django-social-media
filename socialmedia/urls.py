@@ -22,7 +22,7 @@ from django.urls import include, path
 from socialmedia import settings
 
 urlpatterns = [
+    path('accounts/', include('allauth.urls')),
     path("", include("content_sharing.urls", namespace="content_sharing")),
-    path("", include("user_management.urls", namespace="user_management")),
     path("admin/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
