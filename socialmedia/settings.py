@@ -106,9 +106,9 @@ DATABASES = {
 
 # Authentication
 
-LOGIN_REDIRECT_URL = "/"  # Redirect to the home page after login
-ACCOUNT_LOGOUT_REDIRECT_URL = "/accounts/login"  # Redirect to the home page after logout
-ACCOUNT_SIGNUP_REDIRECT_URL = "/accounts/login"  # Redirect to the home page after signup
+LOGIN_REDIRECT_URL = "/"
+ACCOUNT_LOGOUT_REDIRECT_URL = "account_login"
+ACCOUNT_SIGNUP_REDIRECT_URL = "account_login" 
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
